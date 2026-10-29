@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nivas JSON-generator</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="wrap">
+    <div class="header">
+      <img class="avatar" src="avatar.png" alt="Profilbilde" />
+      <h1>Nivas JSON-generator</h1>
+    </div>
+    <p>Velg fane, fyll inn feltene du trenger, og last ned en lokal <code>.json</code>-fil med riktig filnavn.</p>
+
+    <div class="tab-row">
+      <button id="tabFotball" class="tab active" type="button">Fotball</button>
+      <button id="tabPL" class="tab" type="button">Premier League</button>
+      <button id="tabAnnet" class="tab" type="button">Annet</button>
+    </div>
+
+    <div class="card">
+      <div id="panelFotball" class="tab-panel active">
+        <h2 class="section-title">Fotball</h2>
+        <div class="grid">
+          <div class="full">
+            <label for="fotball_title">Tittel</label>
+            <input id="fotball_title" />
+          </div>
+
+          <div>
+            <label for="fotball_eventId">Schibsted Sport Event ID</label>
+            <input id="fotball_eventId" />
+          </div>
+
+          <div>
+            <label for="fotball_type">Hendelsestype</label>
+            <select id="fotball_type">
+              <option>Highlights</option>
+              <option>Summary</option>
+              <option>Goal</option>
+              <option>Red card</option>
+              <option>VAR</option>
+              <option>Interview</option>
+              <option>Special</option>
+              <option>Studio</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="fotball_team">Lag</label>
+            <div class="autocomplete-wrap">
+              <input id="fotball_team" />
+            </div>
+          </div>
+
+          <div>
+            <label for="fotball_person">Person</label>
+            <input id="fotball_person" />
+          </div>
+
+          <div>
+            <label>Stilling ved hendelse</label>
+            <div class="score-wrap">
+              <div>
+                <label for="fotball_homeScore">Hjemme</label>
+                <input id="fotball_homeScore" type="number" min="0" step="1" value="0" />
+              </div>
+              <div class="score-sep">-</div>
+              <div>
+                <label for="fotball_awayScore">Borte</label>
+                <input id="fotball_awayScore" type="number" min="0" step="1" value="0" />
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <label>Til VG-live</label>
+            <div class="toggle-row">
+              <button id="fotball_toVgYes" class="toggle active" type="button">Ja</button>
+              <button id="fotball_toVgNo" class="toggle" type="button">Nei</button>
+            </div>
+          </div>
+
+          <div>
+            <label for="fotball_keyword">Nøkkelord</label>
+            <input id="fotball_keyword" />
+          </div>
+
+          <div class="full">
+            <label for="fotball_filename">Filnavn</label>
+            <input id="fotball_filename" />
+            <div class="hint">Dette gir <strong id="fotball_videoName">vg-live-event.mp4</strong> og <strong id="fotball_jsonName">vg-live-event.json</strong>.</div>
+          </div>
+
+          <div class="full">
+            <label for="fotball_preview">JSON-forhåndsvisning</label>
+            <textarea id="fotball_preview" readonly></textarea>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button id="fotball_downloadBtn" type="button">Last ned JSON</button>
+          <button id="fotball_resetBtn" class="secondary" type="button">Nullstill</button>
+        </div>
+
+        <div class="status" id="fotball_status"></div>
+      </div>
+
+      <div id="panelPL" class="tab-panel">
+        <h2 class="section-title">Premier League</h2>
+        <div class="grid">
+          <div class="full">
+            <label for="pl_title">Tittel</label>
+            <input id="pl_title" />
+          </div>
+
+          <div>
+            <label for="pl_eventId">Schibsted Sport Event ID</label>
+            <input id="pl_eventId" />
+          </div>
+
+          <div>
+            <label for="pl_type">Hendelsestype</label>
+            <select id="pl_type">
+              <option>Highlights</option>
+              <option>Summary</option>
+              <option>Goal</option>
+              <option>Red card</option>
+              <option>VAR</option>
+              <option>Interview</option>
+              <option>Special</option>
+              <option>Studio</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="pl_team">Lag</label>
+            <div class="autocomplete-wrap">
+              <input id="pl_team" />
+            </div>
+          </div>
+
+          <div>
+            <label for="pl_person">Person</label>
+            <input id="pl_person" />
+          </div>
+
+          <div>
+            <label>Stilling ved hendelse</label>
+            <div class="score-wrap">
+              <div>
+                <label for="pl_homeScore">Hjemme</label>
+                <input id="pl_homeScore" type="number" min="0" step="1" value="0" />
+              </div>
+              <div class="score-sep">-</div>
+              <div>
+                <label for="pl_awayScore">Borte</label>
+                <input id="pl_awayScore" type="number" min="0" step="1" value="0" />
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <label>Til VG-live</label>
+            <div class="toggle-row">
+              <button id="pl_toVgYes" class="toggle active" type="button">Ja</button>
+              <button id="pl_toVgNo" class="toggle" type="button">Nei</button>
+            </div>
+          </div>
+
+          <div>
+            <label for="pl_keyword">Nøkkelord</label>
+            <input id="pl_keyword" />
+          </div>
+
+          <div class="full">
+            <label for="pl_filename">Filnavn</label>
+            <input id="pl_filename" />
+            <div class="hint">Dette gir <strong id="pl_videoName">vg-live-event.mp4</strong> og <strong id="pl_jsonName">vg-live-event.json</strong>.</div>
+          </div>
+
+          <div class="full">
+            <label for="pl_preview">JSON-forhåndsvisning</label>
+            <textarea id="pl_preview" readonly></textarea>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button id="pl_downloadBtn" type="button">Last ned JSON</button>
+          <button id="pl_resetBtn" class="secondary" type="button">Nullstill</button>
+        </div>
+
+        <div class="status" id="pl_status"></div>
+      </div>
+
+      <div id="panelAnnet" class="tab-panel">
+        <h2 class="section-title">Annet</h2>
+        <div class="grid">
+          <div class="full">
+            <label for="annet_title">Tittel</label>
+            <input id="annet_title" />
+          </div>
+
+          <div>
+            <label for="annet_eventId">Schibsted Sport Event ID</label>
+            <input id="annet_eventId" />
+          </div>
+
+          <div>
+            <label for="annet_type">Hendelsestype</label>
+            <select id="annet_type">
+              <option>Highlights</option>
+              <option>Summary</option>
+              <option>Interview</option>
+              <option>Studio</option>
+              <option>Crash</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="annet_team">Lag / land / kategori</label>
+            <div class="autocomplete-wrap">
+              <input id="annet_team" />
+            </div>
+          </div>
+
+          <div>
+            <label for="annet_person">Person</label>
+            <input id="annet_person" />
+          </div>
+
+          <div>
+            <label>Til VG-live</label>
+            <div class="toggle-row">
+              <button id="annet_toVgYes" class="toggle active" type="button">Ja</button>
+              <button id="annet_toVgNo" class="toggle" type="button">Nei</button>
+            </div>
+          </div>
+
+          <div>
+            <label for="annet_keyword">Nøkkelord</label>
+            <input id="annet_keyword" />
+          </div>
+
+          <div class="full">
+            <label for="annet_filename">Filnavn</label>
+            <input id="annet_filename" />
+            <div class="hint">Dette gir <strong id="annet_videoName">vg-live-event.mp4</strong> og <strong id="annet_jsonName">vg-live-event.json</strong>.</div>
+          </div>
+
+          <div class="full">
+            <label for="annet_preview">JSON-forhåndsvisning</label>
+            <textarea id="annet_preview" readonly></textarea>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button id="annet_downloadBtn" type="button">Last ned JSON</button>
+          <button id="annet_resetBtn" class="secondary" type="button">Nullstill</button>
+        </div>
+
+        <div class="status" id="annet_status"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
